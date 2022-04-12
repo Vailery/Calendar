@@ -1,0 +1,40 @@
+.main {
+  position: relative;
+  padding-left: 8px;
+}
+
+.main:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: #b54896;
+  border-radius: 1px;
+}
+
+.title {
+  font-family: "SF-Semibold";
+  font-size: 15px;
+  line-height: 18px;
+  color: #000000;
+}
+
+.status,
+.time {
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.status {
+  font-family: "SF-Medium";
+  color: #000000;
+  margin: 2px 0;
+  text-transform: capitalize;
+}
+
+.time {
+  font-family: "SF-Medium";
+  color: rgba(0, 0, 0, 0.5);
+}

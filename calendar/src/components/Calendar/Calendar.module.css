@@ -1,0 +1,21 @@
+.main {
+  width: 155px;
+  height: 155px;
+  min-width: 155px;
+  min-height: 155px;
+  background: #ffffff;
+  border-radius: 21.67px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 15px 24px 14px 16px;
+}
+
+.error {
+  font-family: "SF-Light";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 18px;
+  color: rgba(0, 0, 0, 0.5);
+}
