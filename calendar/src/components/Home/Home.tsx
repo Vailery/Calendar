@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useClient } from "../../services/ClientProvider";
+import { useClient } from "../../context/ClientProvider";
 import { Button } from "../Button/Button";
 import { Calendar } from "../Calendar/Calendar";
 import styles from "./Home.module.css";

@@ -1,6 +1,6 @@
 import "./App.css";
 import { Navigation } from "./navigation/Navigation";
-import { ClientProvider } from "./services/ClientProvider";
+import { ClientProvider } from "./context/ClientProvider";
 
 function App() {
   return (

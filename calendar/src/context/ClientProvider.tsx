@@ -8,8 +8,10 @@ import {
 
 const client_id = process.env.REACT_APP_CLIENT_ID;
 const api_key = process.env.REACT_APP_API_KEY;
-const discovery_docs = [process.env.REACT_APP_DISCOVERY_DOCS];
-const scopes = process.env.REACT_APP_SCOPES;
+const discovery_docs = [
+  "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest",
+];
+const scopes = "https://www.googleapis.com/auth/calendar.readonly";
 
 interface IProps {
   children: ReactNode;
@@ -59,7 +61,7 @@ export const ClientProvider = ({ children }: IProps) => {
 
   const setClient = (gapi: any) => {
     setClientInState(gapi);
-    gapi.load("client:auth2", initClient({ gapi, setIsSignedIn }));
+    gapi.load("client:auth2", () => initClient({ gapi, setIsSignedIn }));
   };
 
   return (

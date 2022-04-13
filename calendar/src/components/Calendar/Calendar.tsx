@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { useClient } from "../../services/ClientProvider";
+import { useClient } from "../../context/ClientProvider";
 import { dateFormatter } from "../../services/dateFormatter";
 import { Day } from "../Day/Day";
 import { Event } from "../Event/Event";
+import { ResizableBox } from "../templates/ResizableBox/ResizableBox";
 import styles from "./Calendar.module.css";
 
 interface IDate {
@@ -19,6 +20,8 @@ interface IEvent {
 export const Calendar = () => {
   const client = useClient();
   const [events, setEvents] = useState<IEvent[]>([]);
+  const [x, setX] = useState<number>(0);
+  const [y, setY] = useState<number>(0);
 
   const listUpcomingEvents = () => {
     client.client.client.calendar.events
@@ -32,7 +35,6 @@ export const Calendar = () => {
       })
       .then((response: any) => {
         const events = response.result.items;
-        console.log(events);
         setEvents(events);
       });
   };
@@ -42,30 +44,37 @@ export const Calendar = () => {
   }, []);
 
   return (
-    <div className={styles.main}>
-      <Day />
-      {events.length !== 0 ? (
-        <>
-          {events.map((event, index) => {
-            const time = dateFormatter(
-              event.start.dateTime,
-              event.end.dateTime
-            );
-            return (
-              <Event
-                key={event.summary + index}
-                name={event.summary}
-                status={event.eventType}
-                time={time}
-              />
-            );
-          })}
-        </>
-      ) : (
-        <p className={styles.error}>You dont have events!</p>
-      )}
-
-      <div className={styles.resizer}></div>
-    </div>
+    <ResizableBox
+      onSizeChange={(x: number, y: number) => {
+        setX(x);
+        setY(y);
+      }}
+      gridY={[155, 190]}
+      gridX={[155, 174]}
+    >
+      <div className={styles.main}>
+        <Day />
+        {events.length !== 0 ? (
+          <>
+            {events.map((event, index) => {
+              const time = dateFormatter(
+                event.start.dateTime,
+                event.end.dateTime
+              );
+              return (
+                <Event
+                  key={event.summary + index}
+                  name={event.summary}
+                  status={event.eventType}
+                  time={time}
+                />
+              );
+            })}
+          </>
+        ) : (
+          <p className={styles.error}>You dont have events!</p>
+        )}
+      </div>
+    </ResizableBox>
   );
 };
