@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useClient } from "../../context/ClientProvider";
 import { Button } from "../Button/Button";
-import { Calendar } from "../Calendar/Calendar";
+import { Widget } from "../Widget/Widget";
 import styles from "./Home.module.css";
 
 export const Home = () => {
@@ -30,7 +30,7 @@ export const Home = () => {
         <Button onClick={handleSignoutClick} text="Sign Out" />
       </div>
 
-      <Calendar />
+      <Widget />
     </div>
   );
 };

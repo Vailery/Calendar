@@ -6,4 +6,5 @@
   position: absolute;
   top: 0;
   transition: width 0.3s ease, height 0.3s;
+  z-index: 1;
 }

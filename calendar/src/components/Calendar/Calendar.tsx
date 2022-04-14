@@ -1,80 +1,107 @@
 import { useEffect, useState } from "react";
-import { useClient } from "../../context/ClientProvider";
-import { dateFormatter } from "../../services/dateFormatter";
-import { Day } from "../Day/Day";
-import { Event } from "../Event/Event";
-import { ResizableBox } from "../templates/ResizableBox/ResizableBox";
 import styles from "./Calendar.module.css";
 
 interface IDate {
-  dateTime: string;
-}
-
-interface IEvent {
-  summary: string;
-  eventType: string;
-  end: IDate;
-  start: IDate;
+  name: string;
+  date: number;
 }
 
 export const Calendar = () => {
-  const client = useClient();
-  const [events, setEvents] = useState<IEvent[]>([]);
-  const [x, setX] = useState<number>(0);
-  const [y, setY] = useState<number>(0);
+  const date = new Date();
+  const [month, setMonth] = useState<string>("");
+  const [days, setDays] = useState<IDate[]>([]);
 
-  const listUpcomingEvents = () => {
-    client.client.client.calendar.events
-      .list({
-        calendarId: "primary",
-        timeMin: new Date().toISOString(),
-        showDeleted: false,
-        singleEvents: true,
-        maxResults: 10,
-        orderBy: "startTime",
-      })
-      .then((response: any) => {
-        const events = response.result.items;
-        setEvents(events);
-      });
+  const renderCalendar = () => {
+    date.setDate(1);
+
+    const lastDay = new Date(
+      date.getFullYear(),
+      date.getMonth() + 1,
+      0
+    ).getDate();
+
+    const prevLastDay = new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      0
+    ).getDate();
+
+    const firstDayIndex = date.getDay();
+
+    const lastDayIndex = new Date(
+      date.getFullYear(),
+      date.getMonth() + 1,
+      0
+    ).getDay();
+
+    const nextDays = 7 - lastDayIndex - 1;
+
+    setMonth(date.toLocaleString("en-us", { month: "long" }));
+
+    for (let x = firstDayIndex; x > 0; x--) {
+      let day = {
+        name: "prevDate",
+        date: prevLastDay - x + 1,
+      };
+
+      setDays((days) => days.concat(day));
+    }
+
+    for (let i = 1; i <= lastDay; i++) {
+      if (
+        i === new Date().getDate() &&
+        date.getMonth() === new Date().getMonth()
+      ) {
+        let day = {
+          name: "today",
+          date: i,
+        };
+        setDays((days) => days.concat(day));
+      } else {
+        let day = {
+          name: "day",
+          date: i,
+        };
+
+        setDays((days) => days.concat(day));
+      }
+    }
+
+    for (let j = 1; j <= nextDays; j++) {
+      let day = {
+        name: "nextDate",
+        date: j,
+      };
+      setDays((days) => days.concat(day));
+    }
   };
 
   useEffect(() => {
-    listUpcomingEvents();
+    renderCalendar();
   }, []);
+  const size = 7;
 
   return (
-    <ResizableBox
-      onSizeChange={(x: number, y: number) => {
-        setX(x);
-        setY(y);
-      }}
-      gridY={[155, 190]}
-      gridX={[155, 174]}
-    >
-      <div className={styles.main}>
-        <Day />
-        {events.length !== 0 ? (
-          <>
-            {events.map((event, index) => {
-              const time = dateFormatter(
-                event.start.dateTime,
-                event.end.dateTime
-              );
-              return (
-                <Event
-                  key={event.summary + index}
-                  name={event.summary}
-                  status={event.eventType}
-                  time={time}
-                />
-              );
-            })}
-          </>
-        ) : (
-          <p className={styles.error}>You dont have events!</p>
-        )}
+    <div className={styles.main}>
+      <p className={styles.title}>{month}</p>
+
+      <div className={styles.weekdays}>
+        <p>S</p>
+        <p>M</p>
+        <p>T</p>
+        <p>W</p>
+        <p>T</p>
+        <p>F</p>
+        <p>S</p>
       </div>
-    </ResizableBox>
+
+      <div className={styles.days}>
+        {days.map((el, index) => (
+          <p key={el.name + index} className={`${styles[el.name]}`}>
+            {el.date}
+          </p>
+        ))}
+      </div>
+    </div>
   );
 };

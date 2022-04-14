@@ -14,11 +14,23 @@
   border-radius: 1px;
 }
 
+.main.next:before {
+  background: #71b548;
+}
+
+.main.green:before {
+  background: #71b548;
+}
+
 .title {
   font-family: "SF-Semibold";
   font-size: 15px;
   line-height: 18px;
   color: #000000;
+}
+
+.title::first-letter {
+  text-transform: uppercase;
 }
 
 .status,
