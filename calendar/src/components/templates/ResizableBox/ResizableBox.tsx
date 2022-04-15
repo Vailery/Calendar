@@ -2,7 +2,7 @@ import { ReactNode, useCallback, useEffect, useState } from "react";
 import { Resizable } from "re-resizable";
 import styles from "./ResizableBox.module.css";
 
-interface IProps {
+interface IResizableBox {
   onSizeChange: (x: number, y: number) => void;
   children: ReactNode;
   gridX: number[];
@@ -35,7 +35,7 @@ export const ResizableBox = ({
   children,
   gridX,
   gridY,
-}: IProps) => {
+}: IResizableBox) => {
   const [width, setWidth] = useState(gridX[0]);
   const [height, setHeight] = useState(gridY[0]);
   const [width2, setWidth2] = useState(width);

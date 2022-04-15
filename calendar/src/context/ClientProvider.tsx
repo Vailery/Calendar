@@ -16,7 +16,7 @@ const discovery_docs = [
 ];
 const scopes = "https://www.googleapis.com/auth/calendar.readonly";
 
-interface IProps {
+interface IChildren {
   children: ReactNode;
 }
 
@@ -57,7 +57,7 @@ const initClient = ({ gapi, setIsSignedIn }: IInit) => {
     });
 };
 
-export const ClientProvider = ({ children }: IProps) => {
+export const ClientProvider = ({ children }: IChildren) => {
   const client = gapi;
   const [isSignedIn, setIsSignedIn] = useState(false);
 

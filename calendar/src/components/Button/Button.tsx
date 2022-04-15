@@ -1,14 +1,34 @@
-import styles from "./Button.module.css";
+import { useContext } from "react";
+import { ThemeContext } from "../../context/ThemeContext";
+import styled from "styled-components";
 
-interface IProps {
+interface IButton {
   text: string;
   onClick: () => void;
 }
 
-export const Button = ({ text, onClick }: IProps) => {
+export const Button = ({ text, onClick }: IButton) => {
+  const { theme } = useContext(ThemeContext);
+
   return (
-    <button className={styles.button} onClick={onClick}>
+    <StyledButton theme={theme} onClick={onClick}>
       {text}
-    </button>
+    </StyledButton>
   );
 };
+
+const StyledButton = styled.button`
+  min-width: 28px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 16px;
+  background: #0071e3;
+
+  font-family: "SF-Regular";
+  font-size: 17px;
+  text-align: center;
+  color: ${({ theme }) => theme.textButton};
+
+  white-space: nowrap;
+  cursor: pointer;
+`;

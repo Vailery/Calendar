@@ -1,21 +1,3 @@
-.main {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: #ffffff;
-  border-radius: 21.67px;
-}
-
-.error {
-  align-self: center;
-  font-family: "SF-Light";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 15px;
-  line-height: 18px;
-  color: rgba(0, 0, 0, 0.5);
-}
-
 .SmallWidget,
 .MediumHorizontalWidget,
 .MediumVerticalWidget,
@@ -79,9 +61,4 @@
 .LargeWidget .events div:nth-last-child(),
 .LargeWidget .events div:nth-last-child(2) {
   margin-right: 10px;
-}
-
-.MediumVerticalWidget .error {
-  flex: auto;
-  text-align: center;
 }

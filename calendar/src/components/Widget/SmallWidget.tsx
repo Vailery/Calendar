@@ -1,5 +1,6 @@
 import { dateFormatter } from "../../services/dateFormatter";
 import { Day } from "../Day/Day";
+import { ErrorMessage } from "../ErrorMessage/ErrorMessage";
 import { Event } from "../Event/Event";
 import { IEvents } from "./Widget";
 import styles from "./Widget.module.css";
@@ -30,7 +31,7 @@ export const SmallWidget = ({ events }: IEvents) => {
           })}
         </>
       ) : (
-        <p className={styles.error}>You don't have events!</p>
+        <ErrorMessage />
       )}
     </div>
   );

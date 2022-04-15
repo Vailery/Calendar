@@ -1,10 +1,13 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import styled from "styled-components";
 import { useClient } from "../../context/ClientProvider";
+import { ThemeContext } from "../../context/ThemeContext";
 import { Button } from "../Button/Button";
 import styles from "./Login.module.css";
 
 export const Login = () => {
+  const { theme } = useContext(ThemeContext);
   const { client, isSignedIn } = useClient();
   const history = useHistory();
 
@@ -20,8 +23,17 @@ export const Login = () => {
 
   return (
     <div className={styles.main}>
-      <p className={styles.text}>Calendar</p>
+      <Title theme={theme}>Calendar</Title>
       <Button onClick={handleAuthClick} text="Login" />
     </div>
   );
 };
+
+const Title = styled.div`
+  font-family: "SF-Semibold";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 18px;
+  color: ${({ theme }) => theme.text};
+`;

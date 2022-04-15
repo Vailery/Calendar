@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useClient } from "../../context/ClientProvider";
 import { dateTransformation } from "../../services/dateFormatter";
 import { ResizableBox } from "../templates/ResizableBox/ResizableBox";
@@ -6,7 +6,8 @@ import { MediumHorizontalWidget } from "./MediumHorizontalWidget";
 import { SmallWidget } from "./SmallWidget";
 import { MediumVerticalWidget } from "./MediumVerticalWidget";
 import { LargeWidget } from "./LargeWidget";
-import styles from "./Widget.module.css";
+import styled from "styled-components";
+import { ThemeContext } from "../../context/ThemeContext";
 
 interface IDate {
   dateTime: string;
@@ -26,6 +27,7 @@ export interface IEvents {
 export const Widget = () => {
   const { client } = useClient();
   const [events, setEvents] = useState<IEvent[]>([]);
+  const { theme } = useContext(ThemeContext);
   const [x, setX] = useState<number>(0);
   const [y, setY] = useState<number>(0);
 
@@ -67,7 +69,7 @@ export const Widget = () => {
       gridY={[155, 190]}
       gridX={[155, 174]}
     >
-      <div className={styles.main}>
+      <Main theme={theme}>
         {x === 155 && y === 155 ? (
           <SmallWidget events={events} />
         ) : x === 329 && y === 155 ? (
@@ -77,7 +79,15 @@ export const Widget = () => {
         ) : (
           <LargeWidget events={events} />
         )}
-      </div>
+      </Main>
     </ResizableBox>
   );
 };
+
+const Main = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: ${({ theme }) => theme.widgetBackground};
+  border-radius: 21.67px;
+`;

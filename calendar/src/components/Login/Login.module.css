@@ -5,12 +5,3 @@
   align-items: center;
   height: 100vh;
 }
-
-.text {
-  font-family: "SF-Semibold";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 15px;
-  line-height: 18px;
-  color: #000000;
-}
