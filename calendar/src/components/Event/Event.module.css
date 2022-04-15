@@ -1,6 +1,7 @@
 .main {
   position: relative;
   padding-left: 8px;
+  width: 123px;
 }
 
 .main:before {
@@ -49,4 +50,13 @@
 .time {
   font-family: "SF-Medium";
   color: rgba(0, 0, 0, 0.5);
+}
+
+.title,
+.status,
+.time {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 100%;
 }

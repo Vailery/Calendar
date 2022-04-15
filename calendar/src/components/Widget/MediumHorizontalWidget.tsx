@@ -27,6 +27,8 @@ export const MediumHorizontalWidget = ({ events }: IEvents) => {
                 />
               );
             }
+
+            return null;
           })}
         </div>
       ) : (

@@ -33,6 +33,8 @@ export const LargeWidget = ({ events }: IEvents) => {
                 />
               );
             }
+
+            return null;
           })}
         </div>
       ) : (

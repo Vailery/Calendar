@@ -25,6 +25,8 @@ export const SmallWidget = ({ events }: IEvents) => {
                 />
               );
             }
+
+            return null;
           })}
         </>
       ) : (

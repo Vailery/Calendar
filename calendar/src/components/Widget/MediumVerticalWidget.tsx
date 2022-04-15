@@ -31,6 +31,8 @@ export const MediumVerticalWidget = ({ events }: IEvents) => {
                 />
               );
             }
+
+            return null;
           })}
         </div>
       ) : (

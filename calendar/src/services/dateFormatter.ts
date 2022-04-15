@@ -1,9 +1,20 @@
+const timeFormatter = (date: Date) => {
+  const minutes = date.getMinutes();
+  const resultMinutes =
+    minutes.toString().length === 1 ? `${minutes}0` : minutes;
+
+  const hours = date.getHours();
+  const resultHours = hours.toString().length === 1 ? `0${hours}` : hours;
+
+  return `${resultHours}:${resultMinutes}`;
+};
+
 export const dateFormatter = (startDateTime: string, endDateTime: string) => {
   const startDate = new Date(startDateTime);
   const endDate = new Date(endDateTime);
 
-  const start = `${startDate.getHours()}:${startDate.getMinutes()}`;
-  const end = `${endDate.getHours()}:${endDate.getMinutes()}`;
+  const start = timeFormatter(startDate);
+  const end = timeFormatter(endDate);
 
   const result = `${start}-${end}`;
   return result;

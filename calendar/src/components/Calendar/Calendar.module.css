@@ -36,6 +36,10 @@
   width: 140px;
 }
 
+.days div {
+  display: flex;
+}
+
 .days p {
   width: 20px;
   height: 20px;
@@ -63,4 +67,9 @@
 .days p.day:hover {
   border: 1px #ee5c51 solid;
   border-radius: 50%;
+}
+
+.days div p:first-of-type,
+.days div p:last-of-type {
+  color: rgba(0, 0, 0, 0.5);
 }
