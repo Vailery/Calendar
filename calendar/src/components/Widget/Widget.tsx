@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useClient } from "../../context/ClientProvider";
 import { dateTransformation } from "../../services/dateFormatter";
 import { ResizableBox } from "../templates/ResizableBox/ResizableBox";
-import styles from "./Widget.module.css";
 import { MediumHorizontalWidget } from "./MediumHorizontalWidget";
 import { SmallWidget } from "./SmallWidget";
 import { MediumVerticalWidget } from "./MediumVerticalWidget";
 import { LargeWidget } from "./LargeWidget";
+import styles from "./Widget.module.css";
 
 interface IDate {
   dateTime: string;
@@ -24,13 +24,13 @@ export interface IEvents {
 }
 
 export const Widget = () => {
-  const client = useClient();
+  const { client } = useClient();
   const [events, setEvents] = useState<IEvent[]>([]);
   const [x, setX] = useState<number>(0);
   const [y, setY] = useState<number>(0);
 
   const listUpcomingEvents = () => {
-    client.client.client.calendar.events
+    client.client.calendar.events
       .list({
         calendarId: "primary",
         timeMin: new Date().toISOString(),

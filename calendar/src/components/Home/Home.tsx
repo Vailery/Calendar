@@ -6,22 +6,18 @@ import { Widget } from "../Widget/Widget";
 import styles from "./Home.module.css";
 
 export const Home = () => {
-  const client = useClient();
+  const { client, isSignedIn } = useClient();
   const history = useHistory();
 
   const handleSignoutClick = () => {
-    client.client.auth2.getAuthInstance().signOut();
+    client.auth2.getAuthInstance().signOut();
   };
 
   useEffect(() => {
-    if (!client.isSignedIn && client.client) {
+    if (!isSignedIn && client) {
       history.push("/login");
     }
-  }, [client, client.isSignedIn]);
-
-  useEffect(() => {
-    client.setClient(window.gapi);
-  }, [client]);
+  }, [client, isSignedIn]);
 
   return (
     <div className={styles.main}>
@@ -30,7 +26,7 @@ export const Home = () => {
         <Button onClick={handleSignoutClick} text="Sign Out" />
       </div>
 
-      <Widget />
+      {isSignedIn ? <Widget /> : <></>}
     </div>
   );
 };

@@ -3,8 +3,11 @@ import {
   Dispatch,
   ReactNode,
   useContext,
+  useEffect,
   useState,
 } from "react";
+
+import { gapi } from "gapi-script";
 
 const client_id = process.env.REACT_APP_CLIENT_ID;
 const api_key = process.env.REACT_APP_API_KEY;
@@ -19,7 +22,6 @@ interface IProps {
 
 interface IClient {
   client: any;
-  setClient: Dispatch<any>;
   isSignedIn: boolean;
 }
 
@@ -38,34 +40,33 @@ export const useClient = () => {
   return context;
 };
 
-const initClient = async ({ gapi, setIsSignedIn }: IInit) => {
-  try {
-    const gapiInit = await gapi.client.init({
+const initClient = ({ gapi, setIsSignedIn }: IInit) => {
+  gapi.client
+    .init({
       apiKey: api_key,
       clientId: client_id,
       discoveryDocs: discovery_docs,
       scope: scopes,
+    })
+    .then(() => {
+      gapi.auth2.getAuthInstance().isSignedIn.listen(setIsSignedIn);
+      setIsSignedIn(gapi.auth2.getAuthInstance().isSignedIn.get());
+    })
+    .catch((err: any) => {
+      console.error(err);
     });
-
-    gapi.auth2.getAuthInstance().isSignedIn.listen(setIsSignedIn);
-
-    setIsSignedIn(gapi.auth2.getAuthInstance().isSignedIn.get());
-  } catch (err) {
-    console.error(err);
-  }
 };
 
 export const ClientProvider = ({ children }: IProps) => {
-  const [client, setClientInState] = useState(undefined);
+  const client = gapi;
   const [isSignedIn, setIsSignedIn] = useState(false);
 
-  const setClient = (gapi: any) => {
-    setClientInState(gapi);
+  useEffect(() => {
     gapi.load("client:auth2", () => initClient({ gapi, setIsSignedIn }));
-  };
+  }, []);
 
   return (
-    <ClientContext.Provider value={{ client, setClient, isSignedIn }}>
+    <ClientContext.Provider value={{ client, isSignedIn }}>
       {children}
     </ClientContext.Provider>
   );

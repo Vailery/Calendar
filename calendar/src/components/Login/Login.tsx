@@ -4,31 +4,19 @@ import { useClient } from "../../context/ClientProvider";
 import { Button } from "../Button/Button";
 import styles from "./Login.module.css";
 
-declare global {
-  interface Window {
-    gapi: any;
-  }
-}
-
 export const Login = () => {
-  const client = useClient();
+  const { client, isSignedIn } = useClient();
   const history = useHistory();
 
   const handleAuthClick = () => {
-    client.setClient(window.gapi);
-
-    client.client.auth2.getAuthInstance().signIn();
+    client.auth2.getAuthInstance().signIn();
   };
 
   useEffect(() => {
-    if (client.isSignedIn && client) {
+    if (isSignedIn && client) {
       history.push("/home");
     }
-  }, [client, client.isSignedIn]);
-
-  useEffect(() => {
-    client.setClient(window.gapi);
-  }, [client]);
+  }, [client, isSignedIn]);
 
   return (
     <div className={styles.main}>
