@@ -1,11 +1,7 @@
-import { useContext } from "react";
-import { ThemeContext } from "../../context/ThemeContext";
 import styled from "styled-components";
 
 export const ErrorMessage = () => {
-  const { theme } = useContext(ThemeContext);
-
-  return <Error theme={theme}>You don't have events!</Error>;
+  return <Error>You don't have events!</Error>;
 };
 
 const Error = styled.p`

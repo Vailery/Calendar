@@ -2,12 +2,10 @@ import { useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { useClient } from "../../context/ClientProvider";
-import { ThemeContext } from "../../context/ThemeContext";
 import { Button } from "../Button/Button";
 import styles from "./Login.module.css";
 
 export const Login = () => {
-  const { theme } = useContext(ThemeContext);
   const { client, isSignedIn } = useClient();
   const history = useHistory();
 
@@ -23,7 +21,7 @@ export const Login = () => {
 
   return (
     <div className={styles.main}>
-      <Title theme={theme}>Calendar</Title>
+      <Title>Calendar</Title>
       <Button onClick={handleAuthClick} text="Login" />
     </div>
   );

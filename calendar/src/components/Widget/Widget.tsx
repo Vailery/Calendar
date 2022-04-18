@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useClient } from "../../context/ClientProvider";
 import { dateTransformation } from "../../services/dateFormatter";
 import { ResizableBox } from "../templates/ResizableBox/ResizableBox";
@@ -7,7 +7,6 @@ import { SmallWidget } from "./SmallWidget";
 import { MediumVerticalWidget } from "./MediumVerticalWidget";
 import { LargeWidget } from "./LargeWidget";
 import styled from "styled-components";
-import { ThemeContext } from "../../context/ThemeContext";
 
 interface IDate {
   dateTime: string;
@@ -24,10 +23,9 @@ export interface IEvents {
   events: IEvent[];
 }
 
-export const Widget = () => {
+export const Widget = React.memo(() => {
   const { client } = useClient();
   const [events, setEvents] = useState<IEvent[]>([]);
-  const { theme } = useContext(ThemeContext);
   const [x, setX] = useState<number>(0);
   const [y, setY] = useState<number>(0);
 
@@ -69,7 +67,7 @@ export const Widget = () => {
       gridY={[155, 190]}
       gridX={[155, 174]}
     >
-      <Main theme={theme}>
+      <Main>
         {x === 155 && y === 155 ? (
           <SmallWidget events={events} />
         ) : x === 329 && y === 155 ? (
@@ -82,7 +80,7 @@ export const Widget = () => {
       </Main>
     </ResizableBox>
   );
-};
+});
 
 const Main = styled.div`
   position: absolute;

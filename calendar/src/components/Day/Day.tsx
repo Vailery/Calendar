@@ -1,10 +1,8 @@
 import { useContext } from "react";
 import styled from "styled-components";
-import { ThemeContext } from "../../context/ThemeContext";
 import styles from "./Day.module.css";
 
 export const Day = () => {
-  const { theme } = useContext(ThemeContext);
   const date = new Date();
   const dayOfWeek = date.toLocaleString("en-us", { weekday: "long" });
   const day = date.getDate();
@@ -12,7 +10,7 @@ export const Day = () => {
   return (
     <div className={styles.main}>
       <p className={styles.dayOfWeek}>{dayOfWeek}</p>
-      <Today theme={theme}>{day}</Today>
+      <Today>{day}</Today>
     </div>
   );
 };

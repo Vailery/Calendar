@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import styled from "styled-components";
-import { ThemeContext } from "../../context/ThemeContext";
 import styles from "./Event.module.css";
 
 interface IMainEvent {
@@ -18,17 +17,15 @@ export const Event = ({
   isChangeColor,
   isGreenColor,
 }: IMainEvent) => {
-  const { theme } = useContext(ThemeContext);
-
   return (
     <div
       className={`${styles.main} ${isChangeColor ? styles.next : ""} ${
         isGreenColor ? styles.green : ""
       }`}
     >
-      <Title theme={theme}>{name}</Title>
-      <Status theme={theme}>{status}</Status>
-      <Time theme={theme}>{time}</Time>
+      <Title>{name}</Title>
+      <Status>{status}</Status>
+      <Time>{time}</Time>
     </div>
   );
 };

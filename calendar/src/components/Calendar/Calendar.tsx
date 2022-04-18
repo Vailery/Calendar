@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import { IDate, makeCalendar } from "../../services/helpers";
 import styled from "styled-components";
 import styles from "./Calendar.module.css";
-import { ThemeContext } from "../../context/ThemeContext";
 
 interface ICalendar {
   days: IDate[];
@@ -11,7 +10,6 @@ interface ICalendar {
 
 export const Calendar = () => {
   const [month, setMonth] = useState<string>("");
-  const { theme } = useContext(ThemeContext);
   const [formattedDays, setFormattedDays] = useState<IDate[][]>([]);
 
   const renderCalendar = ({ days, month }: ICalendar) => {
@@ -35,7 +33,7 @@ export const Calendar = () => {
     <div className={styles.main}>
       <p className={styles.title}>{month}</p>
 
-      <Weekdays theme={theme}>
+      <Weekdays>
         <p>S</p>
         <p>M</p>
         <p>T</p>
@@ -47,10 +45,9 @@ export const Calendar = () => {
 
       <div className={styles.days}>
         {formattedDays.map((el, index) => (
-          <Week theme={theme} key={index}>
+          <Week key={index}>
             {el.map((element, index) => (
               <DayNumber
-                theme={theme}
                 key={element.name + index}
                 className={`${styles[element.name]}`}
               >

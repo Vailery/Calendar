@@ -1,5 +1,3 @@
-import { useContext } from "react";
-import { ThemeContext } from "../../context/ThemeContext";
 import styled from "styled-components";
 
 interface IButton {
@@ -8,13 +6,7 @@ interface IButton {
 }
 
 export const Button = ({ text, onClick }: IButton) => {
-  const { theme } = useContext(ThemeContext);
-
-  return (
-    <StyledButton theme={theme} onClick={onClick}>
-      {text}
-    </StyledButton>
-  );
+  return <StyledButton onClick={onClick}>{text}</StyledButton>;
 };
 
 const StyledButton = styled.button`

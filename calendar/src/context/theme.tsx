@@ -1,16 +1,27 @@
+import { createGlobalStyle } from "styled-components";
 import { createContext, ReactNode, useEffect, useState } from "react";
 
 interface ITheme {
   children: ReactNode;
 }
 
-export const darkTheme = {
-  textButton: "#000000",
-  mainBackground: "#797979",
-  text: "#FFFFFF",
-  widgetBackground: "#121212",
-  grayColor: "#C1C1C1",
-};
+declare module "styled-components" {
+  export interface DefaultTheme {
+    textButton: string;
+    mainBackground: string;
+    text: string;
+    widgetBackground: string;
+    grayColor: string;
+  }
+}
+
+export const GlobalStyles = createGlobalStyle`
+  body {
+    background: ${({ theme }) => theme.mainBackground};
+    color: ${({ theme }) => theme.text};
+    transition: background 0.2s ease-in, color 0.2s ease-in;
+  }
+`;
 
 export const lightTheme = {
   textButton: "#FFFFFF",
@@ -18,6 +29,14 @@ export const lightTheme = {
   text: "#000000",
   widgetBackground: "#ffffff",
   grayColor: "rgba(0, 0, 0, 0.5)",
+};
+
+export const darkTheme = {
+  textButton: "#000000",
+  mainBackground: "#797979",
+  text: "#FFFFFF",
+  widgetBackground: "#121212",
+  grayColor: "#C1C1C1",
 };
 
 export const ThemeContext = createContext({
