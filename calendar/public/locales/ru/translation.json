@@ -2,5 +2,6 @@
   "app_name": "Календарь",
   "exit_button": "Выход",
   "day": "Сегодня",
-  "weekdays": "ВПВСЧПС"
+  "weekdays": "ВПВСЧПС",
+  "error_message": "У вас нет мероприятий!"
 }

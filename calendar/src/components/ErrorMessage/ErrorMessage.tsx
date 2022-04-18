@@ -1,7 +1,9 @@
+import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 
 export const ErrorMessage = () => {
-  return <Error>You don't have events!</Error>;
+  const { t } = useTranslation();
+  return <Error>{t("error_message")}</Error>;
 };
 
 const Error = styled.p`
