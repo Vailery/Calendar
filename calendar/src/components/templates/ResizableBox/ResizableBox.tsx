@@ -1,6 +1,7 @@
 import { ReactNode, useCallback, useEffect, useState } from "react";
 import { Resizable } from "re-resizable";
 import styles from "./ResizableBox.module.css";
+import debounce from "lodash/debounce";
 
 interface IResizableBox {
   onSizeChange: (x: number, y: number) => void;
@@ -73,18 +74,18 @@ export const ResizableBox = ({
         minHeight={gridY[0]}
         maxWidth={gridX[0] + gridX[1]}
         maxHeight={gridY[0] + gridY[1]}
-        onResizeStop={(e, direction, ref, d) => {
+        onResizeStop={debounce((e, direction, ref, d) => {
           setWidth(snapToGridX(width + d.width));
           setHeight(snapToGridY(height + d.height));
-        }}
-        onResize={(e, direction, ref, d) => {
+        }, 25)}
+        onResize={debounce((e, direction, ref, d) => {
           let x = width + d.width;
           let y = height + d.height;
 
           setWidth2(x);
           setHeight2(y);
           onSizeChange(snapToGridX(x), snapToGridY(y));
-        }}
+        }, 25)}
       ></Resizable>
     </div>
   );
