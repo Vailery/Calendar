@@ -8,10 +8,16 @@
 
 .menu {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px;
 
   position: fixed;
   top: 0;
+}
+
+.toggles {
+  display: flex;
+  align-items: center;
 }

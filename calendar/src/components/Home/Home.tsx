@@ -7,9 +7,12 @@ import { Widget } from "../Widget/Widget";
 import styled from "styled-components";
 import styles from "./Home.module.css";
 import { ThemeContext } from "../../context/theme";
+import { useTranslation } from "react-i18next";
+import { LanguageSwitcher } from "../LanguageSwitcher/LanguageSwitcher";
 
 export const Home = () => {
   const { client, isSignedIn } = useClient();
+  const { t } = useTranslation();
   const { isDark, changeIsDark } = useContext(ThemeContext);
   const history = useHistory();
 
@@ -26,16 +29,20 @@ export const Home = () => {
   return (
     <div className={styles.main}>
       <div className={styles.menu}>
-        <DarkModeToggle
-          inputChecked={isDark}
-          onChange={() => {
-            changeIsDark();
-          }}
-        />
+        <Button onClick={handleSignoutClick} text={t("exit_button")} />
 
-        <Title>Calendar</Title>
+        <Title>{t("app_name")}</Title>
 
-        <Button onClick={handleSignoutClick} text="Sign Out" />
+        <div className={styles.toggles}>
+          <LanguageSwitcher />
+
+          <DarkModeToggle
+            inputChecked={isDark}
+            onChange={() => {
+              changeIsDark();
+            }}
+          />
+        </div>
       </div>
 
       {isSignedIn ? <Widget /> : <></>}

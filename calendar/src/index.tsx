@@ -4,11 +4,14 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ThemeProdiver } from "./context/theme";
+import "./services/i18n";
 
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProdiver>
-      <App />
+      <React.Suspense fallback="Loading...">
+        <App />
+      </React.Suspense>
     </ThemeProdiver>
   </React.StrictMode>,
   document.getElementById("root")

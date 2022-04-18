@@ -1,10 +1,11 @@
-import { useContext } from "react";
+import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import styles from "./Day.module.css";
 
 export const Day = () => {
+  const { i18n } = useTranslation();
   const date = new Date();
-  const dayOfWeek = date.toLocaleString("en-us", { weekday: "long" });
+  const dayOfWeek = date.toLocaleString(i18n.language, { weekday: "long" });
   const day = date.getDate();
 
   return (

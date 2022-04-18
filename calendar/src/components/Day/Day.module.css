@@ -11,3 +11,7 @@
   line-height: 14px;
   color: #ee5c51;
 }
+
+.dayOfWeek::first-letter {
+  text-transform: uppercase;
+}

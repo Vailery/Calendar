@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+import styled from "styled-components";
 import { dateFormatter } from "../../services/dateFormatter";
 import { Calendar } from "../Calendar/Calendar";
 import { Day } from "../Day/Day";
@@ -7,6 +9,7 @@ import { IEvents } from "./Widget";
 import styles from "./Widget.module.css";
 
 export const LargeWidget = ({ events }: IEvents) => {
+  const { t } = useTranslation();
   return (
     <div className={styles.LargeWidget}>
       <div className={styles.calendar}>
@@ -15,7 +18,7 @@ export const LargeWidget = ({ events }: IEvents) => {
         <Calendar />
       </div>
 
-      <p className={styles.day}>Today</p>
+      <Today>{t("day")}</Today>
       {events.length !== 0 ? (
         <div className={styles.events}>
           {events.map((event, index) => {
@@ -44,3 +47,10 @@ export const LargeWidget = ({ events }: IEvents) => {
     </div>
   );
 };
+
+const Today = styled.p`
+  font-family: "SF-Medium";
+  font-size: 12px;
+  line-height: 14px;
+  color: ${({ theme }) => theme.grayColor};
+`;

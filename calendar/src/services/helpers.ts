@@ -5,12 +5,12 @@ export interface IDate {
 
 const date = new Date();
 
-export const makeCalendar = () => {
+export const makeCalendar = (language: string) => {
   let days: IDate[] = [];
   let month: string = "";
   date.setDate(1);
 
-  month = date.toLocaleString("en-us", { month: "long" });
+  month = date.toLocaleString(language, { month: "long" });
 
   const lastDay = new Date(
     date.getFullYear(),

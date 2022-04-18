@@ -1,7 +1,8 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { IDate, makeCalendar } from "../../services/helpers";
 import styled from "styled-components";
 import styles from "./Calendar.module.css";
+import { useTranslation } from "react-i18next";
 
 interface ICalendar {
   days: IDate[];
@@ -9,6 +10,7 @@ interface ICalendar {
 }
 
 export const Calendar = () => {
+  const { i18n, t } = useTranslation();
   const [month, setMonth] = useState<string>("");
   const [formattedDays, setFormattedDays] = useState<IDate[][]>([]);
 
@@ -26,21 +28,19 @@ export const Calendar = () => {
   };
 
   useEffect(() => {
-    renderCalendar(makeCalendar());
-  }, []);
+    renderCalendar(makeCalendar(i18n.language));
+  }, [i18n.language]);
 
   return (
     <div className={styles.main}>
       <p className={styles.title}>{month}</p>
 
       <Weekdays>
-        <p>S</p>
-        <p>M</p>
-        <p>T</p>
-        <p>W</p>
-        <p>T</p>
-        <p>F</p>
-        <p>S</p>
+        {t("weekdays")
+          .split("")
+          .map((item, index) => (
+            <p key={item + index}>{item}</p>
+          ))}
       </Weekdays>
 
       <div className={styles.days}>
